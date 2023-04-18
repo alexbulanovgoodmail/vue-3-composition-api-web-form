@@ -4,6 +4,8 @@ import { ref } from 'vue'
 const email = ref('')
 const password = ref('')
 const role = ref('designer')
+const terms = ref(true)
+const names = ref([])
 </script>
 
 <template>
@@ -19,6 +21,24 @@ const role = ref('designer')
       <option value="developer">Web Developer</option>
       <option value="designer">Web Designer</option>
     </select>
+
+    <div class="terms">
+      <input v-model="terms" type="checkbox" required />
+      <label>Accept terms and conditions</label>
+    </div>
+
+    <div>
+      <input v-model="names" value="Alex" type="checkbox" />
+      <label>Alex</label>
+    </div>
+    <div>
+      <input v-model="names" value="Tom" type="checkbox" />
+      <label>Tom</label>
+    </div>
+    <div>
+      <input v-model="names" value="Robin" type="checkbox" />
+      <label>Robin</label>
+    </div>
   </form>
 </template>
 
@@ -51,5 +71,13 @@ select {
   width: 100%;
   padding: 10px 6px;
   color: #555555;
+}
+
+input[type='checkbox'] {
+  position: relative;
+  top: 2px;
+  margin: 0 10px 0 0;
+  display: inline-block;
+  width: 16px;
 }
 </style>
