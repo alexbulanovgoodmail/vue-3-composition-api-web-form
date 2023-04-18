@@ -1,9 +1,17 @@
-<script setup></script>
+<script setup>
+import { ref } from 'vue'
+
+const email = ref('')
+const password = ref('')
+</script>
 
 <template>
   <form>
     <label>Email:</label>
-    <input type="email" required />
+    <input v-model="email" type="email" required />
+
+    <label>Password:</label>
+    <input v-model="password" type="password" required />
   </form>
 </template>
 
