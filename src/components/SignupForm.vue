@@ -1,13 +1,13 @@
 <script setup>
-import { ref } from 'vue'
+import { handleError, ref } from 'vue'
 
 const email = ref('')
 const password = ref('')
+const passwordError = ref('')
 const role = ref('designer')
 const terms = ref(true)
 const tempSkill = ref('')
 const skills = ref([])
-// const names = ref([])
 
 // methods
 function addSkill(e) {
@@ -22,15 +22,31 @@ function addSkill(e) {
 function deleteSkill(index) {
   skills.value.splice(index, 1)
 }
+
+function handleSubmit(params) {
+  // validate password
+  passwordError.value = password.value.length > 5 ? '' : 'Password must be at least 6 chars long'
+
+  if (!passwordError.value) {
+    console.log('email', email.value)
+    console.log('password', password.value)
+    console.log('role', role.value)
+    console.log('skills', skills.value)
+    console.log('terms accepted', terms.value)
+  }
+}
 </script>
 
 <template>
-  <form>
+  <form @submit.prevent="handleSubmit">
     <label>Email:</label>
     <input v-model="email" type="email" required />
 
     <label>Password:</label>
     <input v-model="password" type="password" required />
+    <div v-if="passwordError" class="error-text">
+      {{ passwordError }}
+    </div>
 
     <label>Role:</label>
     <select v-model="role">
@@ -51,18 +67,9 @@ function deleteSkill(index) {
       <label>Accept terms and conditions</label>
     </div>
 
-    <!-- <div>
-      <input v-model="names" value="Alex" type="checkbox" />
-      <label>Alex</label>
+    <div class="submit">
+      <button type="submit">Create an Account</button>
     </div>
-    <div>
-      <input v-model="names" value="Tom" type="checkbox" />
-      <label>Tom</label>
-    </div>
-    <div>
-      <input v-model="names" value="Robin" type="checkbox" />
-      <label>Robin</label>
-    </div> -->
   </form>
 </template>
 
@@ -105,6 +112,15 @@ input[type='checkbox'] {
   width: 16px;
 }
 
+button {
+  border: 0;
+  border-radius: 8px;
+  padding: 10px 20px;
+  color: #ffffff;
+  background-color: #0b6dff;
+  cursor: pointer;
+}
+
 .skills {
   margin: 4px -4px;
   display: flex;
@@ -113,8 +129,8 @@ input[type='checkbox'] {
 
 .skill {
   margin: 4px;
-  border-radius: 4px;
-  padding: 3px 6px;
+  border-radius: 8px;
+  padding: 6px 12px;
   font-size: 24px;
   font-family: monospace;
   font-weight: bold;
@@ -126,5 +142,18 @@ input[type='checkbox'] {
 
 .skill:hover {
   color: initial;
+}
+
+.submit {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.error-text {
+  margin-top: 4px;
+  font-family: monospace;
+  font-size: 0.8em;
+  font-weight: bold;
+  color: #ff0000;
 }
 </style>
