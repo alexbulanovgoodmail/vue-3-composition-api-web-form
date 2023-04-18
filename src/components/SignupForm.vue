@@ -18,6 +18,10 @@ function addSkill(e) {
     tempSkill.value = ''
   }
 }
+
+function deleteSkill(index) {
+  skills.value.splice(index, 1)
+}
 </script>
 
 <template>
@@ -37,7 +41,7 @@ function addSkill(e) {
     <label>Skills:</label>
     <input v-model="tempSkill" type="text" @keyup.alt="addSkill" />
     <div class="skills">
-      <div v-for="(skill, index) in skills" :key="index" class="skill">
+      <div v-for="(skill, index) in skills" :key="index" class="skill" @click="deleteSkill(index)">
         {{ skill }}
       </div>
     </div>
@@ -102,12 +106,25 @@ input[type='checkbox'] {
 }
 
 .skills {
-  margin: 0 -4px;
+  margin: 4px -4px;
   display: flex;
   flex-wrap: wrap;
 }
 
 .skill {
   margin: 4px;
+  border-radius: 4px;
+  padding: 3px 6px;
+  font-size: 24px;
+  font-family: monospace;
+  font-weight: bold;
+  color: #777777;
+  background-color: #eee;
+  cursor: pointer;
+  transition: color 0.6s;
+}
+
+.skill:hover {
+  color: initial;
 }
 </style>
