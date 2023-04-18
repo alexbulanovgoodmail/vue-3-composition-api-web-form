@@ -3,6 +3,7 @@ import { ref } from 'vue'
 
 const email = ref('')
 const password = ref('')
+const role = ref('designer')
 </script>
 
 <template>
@@ -12,6 +13,12 @@ const password = ref('')
 
     <label>Password:</label>
     <input v-model="password" type="password" required />
+
+    <label>Role:</label>
+    <select v-model="role">
+      <option value="developer">Web Developer</option>
+      <option value="designer">Web Designer</option>
+    </select>
   </form>
 </template>
 
@@ -35,7 +42,8 @@ label {
   color: #aaaaaa;
 }
 
-input {
+input,
+select {
   box-sizing: border-box;
   border: none;
   border-bottom: 1px solid #dddddd;
