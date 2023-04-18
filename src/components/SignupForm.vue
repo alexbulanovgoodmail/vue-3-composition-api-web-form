@@ -5,7 +5,19 @@ const email = ref('')
 const password = ref('')
 const role = ref('designer')
 const terms = ref(true)
-const names = ref([])
+const tempSkill = ref('')
+const skills = ref([])
+// const names = ref([])
+
+// methods
+function addSkill(e) {
+  if (e.key === ',' && tempSkill.value) {
+    if (!skills.value.includes(tempSkill.value)) {
+      skills.value.push(tempSkill.value)
+    }
+    tempSkill.value = ''
+  }
+}
 </script>
 
 <template>
@@ -22,12 +34,20 @@ const names = ref([])
       <option value="designer">Web Designer</option>
     </select>
 
+    <label>Skills:</label>
+    <input v-model="tempSkill" type="text" @keyup.alt="addSkill" />
+    <div class="skills">
+      <div v-for="(skill, index) in skills" :key="index" class="skill">
+        {{ skill }}
+      </div>
+    </div>
+
     <div class="terms">
       <input v-model="terms" type="checkbox" required />
       <label>Accept terms and conditions</label>
     </div>
 
-    <div>
+    <!-- <div>
       <input v-model="names" value="Alex" type="checkbox" />
       <label>Alex</label>
     </div>
@@ -38,7 +58,7 @@ const names = ref([])
     <div>
       <input v-model="names" value="Robin" type="checkbox" />
       <label>Robin</label>
-    </div>
+    </div> -->
   </form>
 </template>
 
@@ -79,5 +99,15 @@ input[type='checkbox'] {
   margin: 0 10px 0 0;
   display: inline-block;
   width: 16px;
+}
+
+.skills {
+  margin: 0 -4px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.skill {
+  margin: 4px;
 }
 </style>
